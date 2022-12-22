@@ -1,26 +1,26 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import useAnimalsSearch from './hooks/useAnimalsSearch';
 
 function App() {
+  const {animals, handleSearch} = useAnimalsSearch();
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <h3>Animal Farm</h3>
+      <input id="search" type="text" placeholder='Поиск' onChange={(e) => handleSearch(e.target.value)} />
+      <ul>
+        {animals.map((animal: any) => {
+          return <div key={animal.id}>
+            <li>
+              <strong>{animal.type}</strong>
+              <div>{animal.name}</div>
+              <div>{animal.age}</div>
+            </li>
+          </div>
+        })}
+        {animals.length === 0 && "No animals found"}
+      </ul>
     </div>
-  );
+  )
 }
 
 export default App;
